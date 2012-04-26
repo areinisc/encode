@@ -13,29 +13,37 @@
 #include <queue>
 using namespace std;
 
+class mycomparison {
+    public:
+        mycomparison() {
+            //needs to compare frequencies, not pointers to trees
+        }
+};
+
 int bits_per_pattern(8);
 int characterFrequency[255];
 string filename;
 InBitStream inStream;
-priority_queue<*> frequencyQueue;
+priority_queue< LinkedBinaryTree<int>*, vector<int>, mycomparison> frequencyQueue;
 
 void charFreq() {
     cout << "Name the file to be compressed:\t";
     cin >> filename;
     inStream.open(filename);
     while (!inStream.eof()) {
-        int temp = inStream.read(bits_per_pattern);
-        ++characterFrequency[temp];
+        int temp = inStream.read(bits_per_pattern); 
+        ++characterFrequency[temp]; // counts frequency positively 
         // ***********************come back here later for if odd number of bytes
     }
     inStream.close();
 }
 
 void buildTree() {
-    //build the priority queue--huffman tree
     for (int a = 0; a < 256; a++) {
-        //create tree
-        //insert tree into queue
+        if (characterFrequency[a] != 0) {
+            //LinkedBinaryTree<int> // create tree
+            // push tree into frequencyQueue
+        }
     }
 }
 
