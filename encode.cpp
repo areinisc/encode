@@ -11,27 +11,28 @@
 #include <iostream>
 #include <stdexcept>
 #include <queue>
+//#include <utility>
 using namespace std;
 
-class mycomparison {
-    bool reverse;
-public:
-    mycomparison(const bool& revparam = false) {
-        reverse = revparam;
-        }
-    bool operator()(const int& lhs, const int& rhs) {
-        if (reverse)
-            return lhs > rhs;
-        else
-            return lhs < rhs;
-    }
-};
+//class mycomparison {
+    //bool reverse;
+//public:
+    //mycomparison(const bool& revparam = false) {
+        //reverse = revparam;
+        //}
+    //bool operator()(const pair <LinkedBinaryTree<int>*, int>& lhs, const pair <LinkedBinaryTree<int>*, int>& rhs) {
+        //if (reverse)
+            //return lhs.second greater rhs.second;
+        //else
+            //return lhs.second less rhs.second;
+    //}
+//};
 
 int bits_per_pattern(8);
 int characterFrequency[255];
 string filename;
 InBitStream inStream;
-priority_queue< pair<LinkedBinaryTree<int>*, int>, vector<int>, mycomparison> frequencyQueue;
+priority_queue< pair<int, LinkedBinaryTree<int>*>, vector<int>, greater<int> > frequencyQueue;
 
 /*
  * charFreq() opens the user specified input file
@@ -62,8 +63,8 @@ void buildTree() {
         if (characterFrequency[a] != 0) {
             LinkedBinaryTree<int> *lbt;
             lbt = new LinkedBinaryTree<int>();
-            *lbt.addRoot(a);
-            pair <LinkedBinaryTree<int>*, int> pr (lbt, characterFrequency[a]); // create pair of pointer to LBT and frequency
+            (*lbt).addRoot(a);
+            pair<int, LinkedBinaryTree<int>*> pr (characterFrequency[a], lbt); // create pair of pointer to LBT and frequency
             frequencyQueue.push(pr); // insert pair into pqueue
         }
     }
