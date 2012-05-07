@@ -32,7 +32,8 @@ int bits_per_pattern(8);
 int characterFrequency[255];
 string filename;
 InBitStream inStream;
-priority_queue< pair<int, LinkedBinaryTree<int>*>, vector<int>, greater<int> > frequencyQueue;
+priority_queue< pair<int, LinkedBinaryTree<int>*>, vector<pair<int, LinkedBinaryTree<int>*> >, greater<pair<int, LinkedBinaryTree<int>*> > > frequencyQueue;
+typedef LinkedBinaryTree<int>::Position Position;
 
 /*
  * charFreq() opens the user specified input file
@@ -72,6 +73,13 @@ void buildTree() {
         // make a new root pointer
         // expand root
         // join 2 minimum from priority queue as subtrees
+        LinkedBinaryTree<int> *lbt;
+        lbt = new LinkedBinaryTree<int>();
+        (*lbt).addRoot(NULL);
+        Position pos = (*lbt).root();
+        (*lbt).expandExternal(pos);
+        (*lbt).replaceExternalWithSubtree(pos.left(), frequencyQueue.top().second);
+        frequencyQueue.pop();
     }
 }
 
